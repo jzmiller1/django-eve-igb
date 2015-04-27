@@ -33,7 +33,7 @@ class IGBHeaderParser(object):
         # More information on the headers can be found in CCPs documentation:
         # http://wiki.eveonline.com/en/wiki/IGB_Headers
         self.is_igb = True if 'EVE-IGB' in request.META.get('HTTP_USER_AGENT', '') else False
-        self.trusted = True if request.META.get('HTTP-EVE-TRUSTED', 'No') == 'Yes' else False
+        self.trusted = True if request.META.get('HTTP_EVE_TRUSTED', 'No') == 'Yes' else False
 
         # only if the user trusted the website the other HEADERS will be send by the IGB.
         if self.trusted:
