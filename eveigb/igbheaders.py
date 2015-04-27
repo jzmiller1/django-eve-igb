@@ -56,19 +56,23 @@ class IGBHeaderParser(object):
         # If the header is not set, a sane default will be returned.
 
         # Only set if the player has roles
-        self.corprole = int(request.META.get('HTTP_EVE_CORPROLE', 0))
+        corprole = request.META.get('HTTP_EVE_CORPROLE', 0)
+        self.corprole = 0 if corprole == '' else int(corprole)
         self.corproles = self._get_corp_roles(self.corprole)
         
         # Only set if the players corporation is part of an alliance
         self.alliancename = request.META.get('HTTP_EVE_ALLIANCENAME', '')
-        self.allianceid = int(request.META.get('HTTP_EVE_ALLIANCEID', 0))
+        allianceid = request.META.get('HTTP_EVE_ALLIANCEID', 0)
+        self.allianceid = 0 if allianceid == '' else int(allianceid)
 
         # Only set if the player is on a station
         self.stationname = request.META.get('HTTP_EVE_STATIONNAME', '')
-        self.stationid = int(request.META.get('HTTP_EVE_STATIONID', 0))
+        stationid = request.META.get('HTTP_EVE_STATIONID', 0)
+        self.stationid = 0 if stationid == '' else int(stationid)
 
         # Only set if the player is participating in factional warfare
-        self.warfactionid = int(request.META.get('HTTP_EVE_WARFACTIONID', 0))
+        warfactionid = request.META.get('HTTP_EVE_WARFACTIONID', 0)
+        self.warfactionid = 0 if warfactionid == '' else int(warfactionid)
 
         self.is_on_station = True if self.stationname != '' else False
         self.is_factionwarfare = True if self.warfactionid != 0 else False
